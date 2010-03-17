@@ -1,3 +1,14 @@
+/*
+---
+script: expectation.js
+description: expectation class
+license: MIT-style license
+authors:
+- Mark Obcena
+provides: [Expectation]
+...
+*/
+
 (function(){
 
 var utils = require('./utils'),

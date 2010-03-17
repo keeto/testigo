@@ -1,3 +1,14 @@
+/*
+---
+script: simple.js
+description: a simple runner
+license: MIT-style license
+authors:
+- Mark Obcena
+provides: [SimpleRunner]
+...
+*/
+
 (function(){
 
 var sys, printer = function(type){

@@ -1,3 +1,14 @@
+/*
+---
+script: suite.js
+description: test-suite class
+license: MIT-style license
+authors:
+- Mark Obcena
+provides: [Suite]
+...
+*/
+
 (function(){
 
 var checkArg = require('./utils').checkArg,

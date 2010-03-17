@@ -1,3 +1,14 @@
+/*
+---
+script: case.js
+description: test-case class
+license: MIT-style license
+authors:
+- Mark Obcena
+provides: [Case]
+...
+*/
+
 (function(){
 
 var checkArg = require('./utils').checkArg,

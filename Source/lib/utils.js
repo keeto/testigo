@@ -1,3 +1,14 @@
+/*
+---
+script: utils.js
+description: utility functions
+license: MIT-style license
+authors:
+- Mark Obcena
+provides: [typeOf, instanceOf, checkArg]
+...
+*/
+
 (function(){
 
 exports.typeOf = function(item){

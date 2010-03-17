@@ -1,3 +1,14 @@
+/*
+---
+script: testigo.js
+description: main testigo class
+license: MIT-style license
+authors:
+- Mark Obcena
+provides: [Testigo]
+...
+*/
+
 (function(){
 
 var Suite = require('./lib/suite').Suite;
