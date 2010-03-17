@@ -1,7 +1,7 @@
 Testigo: A CommonJS Testing Framework
 =====================================
 
-Testigo is a basic testing framework for CommonJS. It could be used asynchronously, it is engine agnostic and relies on explicit argument declarations for its test functions.
+Testigo is a basic testing framework for CommonJS. It could be used asynchronously, it is engine-agnostic and relies on explicit argument declarations for its test functions.
 
 
 A Taste of Syntax
@@ -34,7 +34,7 @@ A Taste of Syntax
 	
 	Runner.run();
 
-Testigo relies on explicit argument declarations for its testing functions `it` and `expect`. Rather than making these functions globals, Testigo passed these test functions as arguments in order to ensure that their scope would resolve to the current test-suite. Failing to define these named arguments will result in an error.
+Testigo relies on explicit argument declarations for its testing functions `it` and `expect`. Rather than making these functions globals, Testigo passes these test functions as arguments in order to ensure that their scope would resolve to the current test-suite. Failing to define these named arguments will result in an error.
 
 
 Usage and API
