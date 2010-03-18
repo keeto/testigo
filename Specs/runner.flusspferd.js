@@ -17,10 +17,7 @@ var Testigo = require('testigo').Testigo,
 	Runner = new Testigo.Runners.Simple('flusspferd', Tests);
 
 // Import test cases
-require('./suites/Utils').setup(Tests);
-require('./suites/Expectation').setup(Tests);
-require('./suites/Case').setup(Tests);
-require('./suites/Suite').setup(Tests);
+require('./tests').setup(Tests);
 
 // Run tests
 Runner.run();
