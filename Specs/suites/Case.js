@@ -5,6 +5,10 @@ var Case = require('lib/case').Case;
 Tests.describe('Cases', function(it, setup){
 
 	setup('beforeEach', function(){
+		var self = this;
+		this.throwingTest = function(){
+			new Case('descr', function(){});
+		};
 		this.failingTest = new Case('descr', function(expect){
 			expect(1).toBe(1);
 			expect.apply(null, [1]).toBeAnInstanceOf(Number);
@@ -13,8 +17,33 @@ Tests.describe('Cases', function(it, setup){
 			expect.call;
 		});
 		this.passingTest = new Case('descr', function(expect){
+			self.innerExpect = expect;
 			expect(1).toBe(1);
+		}, {}, {
+			'before': function(){
+				self.beforeCallback = true;
+			},
+			'after': function(){
+				self.afterCallback = true;
+			}
 		});
+	});
+
+	it('should error out if no `expect` named argument is declared', function(expect){
+		var error = null;
+		try {
+			this.throwingTest();
+		} catch(e){
+			error = e;
+		} finally {
+			expect(error).toBeAnInstanceOf(Error);
+			expect(error.message).toBe('Case function does not explicitly define an `expect` argument.');
+		}
+	});
+
+	it('should pass an `expect` function', function(expect){
+		this.passingTest.run();
+		expect(this.innerExpect).toBeAnInstanceOf(Function);
 	});
 
 	it('should have the correct number of expectations', function(expect){
@@ -46,6 +75,15 @@ Tests.describe('Cases', function(it, setup){
 		expect(results.tests.passes).toBe(2);
 	});
 
+	it('should fire `before` callbacks before running tests', function(expect){
+		this.passingTest.run();
+		expect(this.beforeCallback).toBeTrue();
+	});
+
+	it('should fire `after` callbacks when tests are done', function(expect){
+		this.passingTest.run();
+		expect(this.afterCallback).toBeTrue();
+	});
 
 });
 

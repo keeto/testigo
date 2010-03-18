@@ -20,6 +20,7 @@ var Testigo = require('testigo').Testigo,
 require('./suites/Utils').setup(Tests);
 require('./suites/Expectation').setup(Tests);
 require('./suites/Case').setup(Tests);
+require('./suites/Suite').setup(Tests);
 
 // Run tests
 Runner.run();
