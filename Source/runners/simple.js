@@ -99,8 +99,8 @@ var callbacks = {
 			this.$print(['     ', i + 1, ': '].join(''));
 			this.$setColor();
 			this.$print([
-				'Expected ', result.matcher, ' ', (result.expected) ? result.expected : '',
-				', got ', result.received, '\n'
+				'Expected ', result.matcher, ' "', (result.expected) ? result.expected : '"',
+				', got "', result.received, '"\n'
 			].join(''));
 		}
 	}
