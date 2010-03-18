@@ -98,10 +98,16 @@ var callbacks = {
 			this.$setColor('red');
 			this.$print(['     ', i + 1, ': '].join(''));
 			this.$setColor();
-			this.$print([
-				'Expected ', result.matcher, ' "', (result.expected) ? result.expected : '"',
-				', got "', result.received, '"\n'
-			].join(''));
+			if (result.error){
+				this.$print([
+					'Error thrown: "', result.error,'"\n'
+				].join(''));
+			} else {
+				this.$print([
+					'Expected ', result.matcher, ' "', (result.expected) ? result.expected : '"',
+					', got "', result.received, '"\n'
+				].join(''));
+			}
 		}
 	}
 };

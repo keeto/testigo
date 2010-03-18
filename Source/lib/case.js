@@ -52,7 +52,7 @@ Case.prototype.setCallback = function(type, fn){
 };
 
 Case.prototype.done = function(){
-	return !(this.$testCount - this.$doneCount);
+	return (!(this.$testCount - this.$doneCount) || this.$finished);
 };
 
 Case.prototype.results = function(){
@@ -69,20 +69,24 @@ Case.prototype.results = function(){
 	};
 };
 
+var addResult = function(results, success, done){
+	this.$results.push(results);
+	this.$doneCount++;
+	this[success ? '$passes' : '$failures']++;
+	if (this.done() && this.$callbacks.after instanceof Function){
+		this.$callbacks.after.call(this, this.results(), (this.$failures === 0));
+	}
+};
 
 var expectCallback = function(){
 	var self = this;
 	return function(result, received, expected, matcher){
-		self.$results.push({
+		addResult.call(self, {
 			passed: result,
 			received: received,
 			expected: expected,
 			matcher: matcher
-		});
-		self.$doneCount++;
-		self[result ? '$passes' : '$failures']++;
-		if (self.done() && self.$callbacks.after instanceof Function)
-			self.$callbacks.after.call(self, self.results(), (self.$failures === 0));
+		}, result);
 	};
 };
 
@@ -92,12 +96,25 @@ Case.prototype.$expect = function(received){
 };
 
 Case.prototype.run = function(){
-	var self = this;
+	var self = this, error;
 	if (this.$callbacks.before instanceof Function)
 		this.$callbacks.before.call(self, this.desc, this.$testCount);
-	this.$test.call(this.$context, function(){
-		return self.$expect.apply(self, Array.prototype.slice.call(arguments));
-	});
+	try {
+		this.$test.call(this.$context, function(){
+			return self.$expect.apply(self, Array.prototype.slice.call(arguments));
+		});
+	} catch(e){
+		error = e;
+	} finally {
+		this.$finished = true;
+		if (error) addResult.call(this, {
+			passed: false,
+			received: null,
+			expected: null,
+			matcher: null,
+			error: error
+		}, false);
+	}
 };
 
 exports.Case = Case;
