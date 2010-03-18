@@ -25,10 +25,11 @@ var sys, printer = function(type){
 	return function(){};
 };
 
-var SimpleRunner = function(type, testigo, colors){
+var SimpleRunner = function(type, testigo, colors, stack){
 	this.$testigo = testigo;
 	this.$print = printer(type);
 	this.$colors = (colors !== undefined) ? colors : true;
+	this.$stack = (stack !== undefined) ? stack : true;
 	this.addCallbacks();
 };
 
@@ -102,10 +103,18 @@ var callbacks = {
 				this.$print([
 					'Error thrown: "', result.error,'"\n'
 				].join(''));
+				if (this.$stack) {
+					this.$print('       --- Error Details ---\n');
+					this.$print('         Name: ' + result.error.name + '\n');
+					this.$print('         Stack --- \n');
+					this.$print('         ' + result.error.stack.split('\n').join('\n         ') + '\n');
+					this.$print('         --------- \n');
+					this.$print('       ---------------------\n');
+				}
 			} else {
 				this.$print([
-					'Expected ', result.matcher, ' "', (result.expected) ? result.expected : '"',
-					', got "', result.received, '"\n'
+					'Expected ', result.matcher, ' ', (result.expected) ? result.expected : '',
+					', got ', result.received, '\n'
 				].join(''));
 			}
 		}
