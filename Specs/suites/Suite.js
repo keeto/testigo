@@ -21,6 +21,7 @@ Tests.describe('Suites', function(it, setup){
 	});
 
 	it('should pass an `it` and `setup` function', function(expect){
+		expect.perform(2);
 		new Suite('Pass', function(it, setup){
 			expect(it).toBeAnInstanceOf(Function);
 			expect(setup).toBeAnInstanceOf(Function);
