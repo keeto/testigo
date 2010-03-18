@@ -122,6 +122,12 @@ A matcher is a method that checks the received value of an expectation against a
 - `toBeFalse` - `false` test
 - `toBeTruthy` - truthy value test
 - `toBeFalsy` - falsy value test
+- `toHaveMember` - membership test; uses `in`
+- `toHaveProperty` - membership test; uses `in`, checks for `instanceof Function == false`
+- `toHaveMethod` - membership test; uses `in`, checks for `instanceof Function == true`
+- `toBeLike` - members test; checks member similarity for objects, item similarity for arrays and equality for all others.
+- `toBeSimilar` - `JSON.stringify` equality test
+- `toMatch` - `regexp.test()` test
 
 You can also negate a test via the `not` property:
 

@@ -73,6 +73,56 @@ Expectation.Matchers = {
 
 	toBeFalsy: function(received){
 		return (!!received) === false;
+	},
+
+	toHaveMember: function(received, expected){
+		try {
+			return (expected in received);
+		} catch(e){
+			return false;
+		}
+	},
+
+	toHaveProperty: function(received, expected){
+		try {
+			return (expected in received) && received[expected] !== undefined && !(received[expected] instanceof Function);
+		} catch(e){
+			return false;
+		}
+	},
+
+	toHaveMethod: function(received, expected){
+		try {
+			return (expected in received) && received[expected] !== undefined && (received[expected] instanceof Function);
+		} catch(e){
+			return false;
+		}
+	},
+
+	toBeLike: function(received, expected){
+		var type = typeOf(expected);
+		if (type !== typeOf(received)) return null;
+		if (type == 'object'){
+			for (var key in expected){
+				if (received[key] === undefined || received[key] !== expected[key]) return false;
+			}
+		} else if (type == 'array'){
+			var len = expected.length;
+			while (len--){
+				if (received.indexOf(expected[len]) === -1) return false;
+			}
+		} else {
+			return expected === received;
+		}
+		return true;
+	},
+
+	toBeSimilar: function(received, expected){
+		return JSON.stringify(received) === JSON.stringify(expected);
+	},
+
+	toMatch: function(received, expected){
+		return expected.test(received);
 	}
 
 };
