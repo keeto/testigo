@@ -22,7 +22,7 @@ var countExpect = function(fn){
 
 var Case = function(desc, test, context, callback){
 	if (!checkArg('expect', test))
-		throw new Error('Test function does not explicitly define an `expect` argument.');
+		throw new Error('Case function does not explicitly define an `expect` argument.');
 
 	this.desc = desc;
 	this.$test = test;
