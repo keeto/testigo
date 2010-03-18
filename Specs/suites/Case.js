@@ -13,6 +13,9 @@ Tests.describe('Cases', function(it, setup){
 			expect(1).toBe(1);
 			expect.apply(null, [1]).toBeAnInstanceOf(Number);
 			expect.call(null, 'mark').toBe('w');
+			// expect(1).toBe(1);
+			// expect.apply(null, [1]).toBeAnInstanceOf(Number);
+			// expect.call(null, 'mark').toBe('w');
 			expect.apply;
 			expect.call;
 		});
