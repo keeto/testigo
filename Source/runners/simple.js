@@ -96,9 +96,7 @@ var callbacks = {
 
 	beforeTest: function(suite, test, count){
 		this.$print(' - ');
-		this.$setColor('yellow');
 		this.$print(test);
-		this.$setColor();
 		this.$print('... ');
 	},
 
@@ -152,8 +150,17 @@ SimpleRunner.prototype.addCallbacks = function(){
 
 SimpleRunner.prototype.$setColor = function(color){
 	if (!this.$colors) return this;
-	var colors = {green: "32", red: "31", yellow: "33"};
-	if(color) this.$print("\u001B[" + colors[color] + "m");
+	var colors = {
+		black: '30',
+		red: '31',
+		green: '32', 
+		yellow: '33',
+		blue: '34',
+		magenta: '35',
+		cyan: '36',
+		white: '37'
+	};
+	if (color && colors[color]) this.$print("\u001B[" + colors[color] + "m");
 	else this.$print("\u001B[0m");
 	return this;
 };
