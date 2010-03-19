@@ -73,6 +73,10 @@ Suite.prototype.done = function(){
 	return !(this.$testCount - this.$doneCount);
 };
 
+Suite.prototype.count = function(){
+	return this.$testCount;
+};
+
 Suite.prototype.results = function(){
 	if (!this.done()) return {};
 	return {

@@ -30,7 +30,8 @@ var Testigo = function(callbacks){
 		beforeTest: function(){},
 		after: function(){},
 		afterSuite: function(){},
-		afterTest: function(){}
+		afterTest: function(){},
+		suiteError: function(){}
 	};
 	callbacks = callbacks || {};
 	this.setCallbacks({
@@ -39,7 +40,8 @@ var Testigo = function(callbacks){
 		beforeTest: callbacks.beforeTest,
 		after: callbacks.after,
 		afterSuite: callbacks.afterSuite,
-		afterTest: callbacks.afterTest
+		afterTest: callbacks.afterTest,
+		suiteError: callbacks.suiteError
 	});
 };
 
@@ -104,7 +106,14 @@ Testigo.prototype.describe = function(name, fn){
 var callNext = function(){
 	var current = this.$suites.shift();
 	if (current){
-		current.run();
+		try {
+			current.run();
+		} catch(e){
+			this.$suitesDone++;
+			this.$failures += current.count();
+			this.$callbacks.suiteError.call(null, current.name, current.count(), e);
+			callNext.call(this);
+		}
 	} else {
 		this.$callbacks.after.call(null, (this.$failures === 0), this.results());
 	}
@@ -115,8 +124,8 @@ Testigo.prototype.run = function(){
 	callNext.call(this);
 };
 
-Testigo.version = [0,1,4];
-Testigo.versionText = "0.1.4";
+Testigo.version = [0,1,5];
+Testigo.versionText = "0.1.5";
 
 Testigo.Runners = {
 	Simple: require('./runners/simple').SimpleRunner
