@@ -38,7 +38,7 @@ Expectation.setMatcher = function(name, func){
 		throw new Error('Expectation.setMatcher requires a function as its second argument.');
 	Expectation.prototype[name] = function(expected){
 		var result = func.call(null, this.$received, expected);
-		this.$callback.call(this.$bound, result, this.$received, expected, matcher);
+		this.$callback.call(this.$bound, result, this.$received, expected, name);
 		return result;
 	};
 };

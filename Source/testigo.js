@@ -25,6 +25,7 @@ var Testigo = function(callbacks){
 	this.$failures = 0;
 
 	this.$callbacks = {
+		describe: function(){},
 		before: function(){},
 		beforeSuite: function(){},
 		beforeTest: function(){},
@@ -35,6 +36,7 @@ var Testigo = function(callbacks){
 	};
 	callbacks = callbacks || {};
 	this.setCallbacks({
+		describe:callbacks.describe,
 		before: callbacks.before,
 		beforeSuite: callbacks.beforeSuite,
 		beforeTest: callbacks.beforeTest,
@@ -101,6 +103,7 @@ Testigo.prototype.describe = function(name, fn){
 		}
 	});
 	this.$suites.push(suite);
+	this.$callbacks.describe.call(null, name);
 };
 
 var callNext = function(){
@@ -124,8 +127,8 @@ Testigo.prototype.run = function(){
 	callNext.call(this);
 };
 
-Testigo.version = [0,1,6];
-Testigo.versionText = "0.1.6";
+Testigo.version = [0,1,7];
+Testigo.versionText = "0.1.7";
 
 Testigo.Runners = {
 	Simple: require('./runners/simple').SimpleRunner
