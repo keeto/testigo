@@ -25,6 +25,7 @@ var Testigo = function(callbacks){
 	this.$failures = 0;
 
 	this.$callbacks = {
+		describe: function(){},
 		before: function(){},
 		beforeSuite: function(){},
 		beforeTest: function(){},
@@ -35,6 +36,7 @@ var Testigo = function(callbacks){
 	};
 	callbacks = callbacks || {};
 	this.setCallbacks({
+		describe:callbacks.describe,
 		before: callbacks.before,
 		beforeSuite: callbacks.beforeSuite,
 		beforeTest: callbacks.beforeTest,
@@ -101,6 +103,7 @@ Testigo.prototype.describe = function(name, fn){
 		}
 	});
 	this.$suites.push(suite);
+	this.$callbacks.describe.call(null, name);
 };
 
 var callNext = function(){
