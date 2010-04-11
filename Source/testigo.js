@@ -138,6 +138,10 @@ Testigo.setMatcher = Testigo.prototype.setMatcher = function(name, fn){
 	Suite.setMatcher(name, fn);
 };
 
+Testigo.setMatchers = Testigo.prototype.setMatchers = function(matchers){
+	for (var m in matchers) Suite.setMatcher(m, matchers[m]);
+};
+
 exports.Testigo = Testigo;
 
 })();
