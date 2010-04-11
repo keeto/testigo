@@ -49,7 +49,7 @@ var Testigo = function(callbacks){
 
 Testigo.prototype.setCallback = function(name, fn){
 	if (fn === undefined || !(fn instanceof Function))
-		throw new Error('Testigo.setCallback requires a function as its second argument.');
+		throw new TypeError('Testigo.setCallback requires a function as its second argument.');
 	this.$callbacks[name] = fn;
 	return this;
 };

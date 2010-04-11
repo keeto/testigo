@@ -32,14 +32,14 @@ Tests.describe('Cases', function(it, setup){
 		});
 	});
 
-	it('should error out if no `expect` named argument is declared', function(expect){
+	it('should throw a syntax error if no `expect` named argument is declared', function(expect){
 		var error = null;
 		try {
 			this.throwingTest();
 		} catch(e){
 			error = e;
 		} finally {
-			expect(error).toBeAnInstanceOf(Error);
+			expect(error).toBeAnInstanceOf(SyntaxError);
 			expect(error.message).toBe('Case function does not explicitly define an `expect` argument.');
 		}
 	});

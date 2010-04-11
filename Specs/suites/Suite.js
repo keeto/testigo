@@ -8,14 +8,14 @@ Tests.describe('Suites', function(it, setup){
 
 	});
 
-	it('should error out if no `it` named argument is declared', function(expect){
+	it('should throw a syntax error if no `it` named argument is declared', function(expect){
 		var error = null;
 		try {
 			new Suite('Fail', function(){});
 		} catch(e){
 			error = e;
 		} finally {
-			expect(error).toBeAnInstanceOf(Error);
+			expect(error).toBeAnInstanceOf(SyntaxError);
 			expect(error.message).toBe('Suite function does not explicitly define an `it` argument.');
 		}
 	});
