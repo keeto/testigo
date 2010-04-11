@@ -1,7 +1,7 @@
 Testigo: A CommonJS Testing Framework
 =====================================
 
-Testigo is a basic testing framework for CommonJS. It could be used asynchronously, it is engine-agnostic and relies on explicit argument declarations for its test functions.
+Testigo is a basic testing framework for CommonJS (and the browser). It could be used asynchronously, it is engine-agnostic and relies on explicit argument declarations for its test functions.
 
 
 A Taste of Syntax
@@ -27,14 +27,14 @@ A Taste of Syntax
 			var str = this.str;
 			setTimeout(function(){
 				expect(str).toEqual('testigo');
-			});
+			}, 5000);
 		});
 		
 	});
 	
 	Runner.run();
 
-Testigo relies on explicit argument declarations for its testing functions `it` and `expect`. Rather than making these functions globals, Testigo passes these test functions as arguments in order to ensure that their scope would resolve to the current test-suite. Failing to define these named arguments will result in an error.
+Testigo relies on explicit argument declarations for its testing functions `it` and `expect`. Rather than making these functions globals, Testigo passes these test functions as arguments in order to ensure that their scope would resolve to the current test-suite. Failing to define these named arguments will result in a syntax error.
 
 
 Usage and API
@@ -108,7 +108,18 @@ This function is passed as the only argument to the body-function of a test-case
 
 1. `received` (any) - any value.
 
-**Matchers:**
+### Testigo Instance: setMatcher()
+
+	testigo.addMatcher(name, matcher);
+
+Adds a new matcher for expectations.
+
+**Argument:**
+
+1. `name` (string) - the name of the matcher.
+2. `matcher` (function) - the matcher function; should return true if the expectation matches the conditions of the function, false otherwise.
+
+**Included Matchers:**
 
 A matcher is a method that checks the received value of an expectation against an expected value. The following matchers are available:
 
@@ -137,21 +148,22 @@ You can also negate a test via the `not` property:
 Runners
 -------
 
-A runner takes a Testigo instance, runs the test-suites and prints out the result. A simple runner is included and could be found under `Testigo.Runners.Simple`.
+A runner takes a Testigo instance, runs the test-suites and prints out the result.
 
+**Simple Runner for CommonJS**
 
-Examples
---------
+A simple console-based runner for CommonJS implementations is included and could be found under `Testigo.Runners.Simple`. Check the `runner.<enginename>.js` files /Specs folder for examples of how to use it in the supported commonjs engines.
 
-Check the /Specs folder for an example of how to use Testigo.
+**Basic Runner for the Browser**
+
+A basic runner for the browser is also included. Check the `runner.html` and `tests.html` files /Specs folder for an example of how to use it.
 
 
 TODO
 ----
 
 1. Adding new matchers.
-2. Adding new runners.
-3. Improve docs.
+2. Improve docs.
 
 
 Credits
