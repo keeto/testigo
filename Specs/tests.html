@@ -4,7 +4,12 @@
 	<script type="text/javascript" src="../Source/runners/html/assets/require.js"></script>
 	<script type="text/javascript">
 		window.runTests = function(){}
+		/* 
+			make sure to edit this next line to reflect the path of the testigo
+			source path in your installation.
+		*/
 		require.paths.unshift('/Source/');
+		
 		var Testigo = require('../Source/testigo').Testigo,
 			Tests = new Testigo();
 		Tests.setCallbacks({

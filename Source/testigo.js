@@ -49,7 +49,7 @@ var Testigo = function(callbacks){
 
 Testigo.prototype.setCallback = function(name, fn){
 	if (fn === undefined || !(fn instanceof Function))
-		throw new Error('Testigo.setCallback requires a function as its second argument.');
+		throw new TypeError('Testigo.setCallback requires a function as its second argument.');
 	this.$callbacks[name] = fn;
 	return this;
 };
@@ -127,8 +127,8 @@ Testigo.prototype.run = function(){
 	callNext.call(this);
 };
 
-Testigo.version = [0,1,7];
-Testigo.versionText = "0.1.7";
+Testigo.version = [0,1,8];
+Testigo.versionText = "0.1.8";
 
 Testigo.Runners = {
 	Simple: require('./runners/simple').SimpleRunner
@@ -136,6 +136,10 @@ Testigo.Runners = {
 
 Testigo.setMatcher = Testigo.prototype.setMatcher = function(name, fn){
 	Suite.setMatcher(name, fn);
+};
+
+Testigo.setMatchers = Testigo.prototype.setMatchers = function(matchers){
+	for (var m in matchers) Suite.setMatcher(m, matchers[m]);
 };
 
 exports.Testigo = Testigo;

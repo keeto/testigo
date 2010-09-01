@@ -16,7 +16,7 @@ var checkArg = require('./utils').checkArg,
 
 var Suite = function(name, body, callbacks){
 	if (!checkArg('it', body))
-		throw new Error('Suite function does not explicitly define an `it` argument.');
+		throw new SyntaxError('Suite function does not explicitly define an `it` argument.');
 
 	this.name = name;
 	this.$body = body;
@@ -57,7 +57,7 @@ Suite.setMatcher = function(name, fn){
 
 Suite.prototype.setCallback = function(type, fn){
 	if (fn === undefined || !(fn instanceof Function))
-		throw new Error('Suite.setCallback requires a function as its second argument.');
+		throw new TypeError('Suite.setCallback requires a function as its second argument.');
 	this.$callbacks[type] = fn;
 	return this;
 };
