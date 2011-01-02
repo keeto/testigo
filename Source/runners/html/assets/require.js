@@ -27,7 +27,7 @@ var normalize = function(path, base){
 	path = path.split('/').reverse();
 	base = base.split('/');
 	var last = base.pop();
-	if (last && !(/\.[A-Za-z0-9_-]+$/)) base.push(last);
+	if (last && !(/\.[A-Za-z0-9_-]+$/).test(last)) base.push(last);
 	var i = path.length;
 	while (i--){
 		var current = path[i];
@@ -53,7 +53,7 @@ var require = function req(module, path){
 	new Function('_require, _base, exports', fn).call(window, req, base, exports);
 	if (path) require.paths.shift();
 	return exports;
-}
+};
 
 require.paths = [window.location.pathname];
 
