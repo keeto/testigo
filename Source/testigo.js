@@ -127,7 +127,7 @@ Testigo.prototype.run = function(){
 	callNext.call(this);
 };
 
-Testigo.version = [0,1,9];
+Testigo.version = [0,1,9,'X'];
 Testigo.versionText = Testigo.version.join('.');
 
 Testigo.Runners = {
