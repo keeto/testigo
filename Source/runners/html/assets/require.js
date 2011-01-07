@@ -43,10 +43,13 @@ var normalize = function(path, base){
 var require = function req(module, path){
 	if (path) require.paths.unshift(path);
 	var cont = true, contents = false, base = '';
-	for (var i = 0, y = require.paths.length; i < y && cont; i++) (function(_current){
+	for (var i = 0, y = require.paths.length; (i < y) && cont; i++) (function(_current){
 		base = normalize(module, _current);
 		contents = load(base);
-		if (contents !== false) cont = false;
+		if (contents !== false){
+			cont = false;
+			base = base.replace(/(?:\/)[^\/]*$/, '');
+		}
 	})(require.paths[i]);
 	if (contents === false) throw new Error('Cannot find module "' + module + '"');
 	var exports = {}, fn = 'var require = function(m){ return _require(m, _base); };' + contents;
