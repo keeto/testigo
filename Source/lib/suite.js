@@ -12,7 +12,8 @@ provides: [Suite]
 (function(){
 
 var checkArg = require('./utils').checkArg,
-	Case = require('./case').Case;
+	Case = require('./case').Case,
+	Spy = require('./spy').Spy;
 
 var Suite = function(name, body, callbacks){
 	if (!checkArg('it', body))
@@ -22,7 +23,11 @@ var Suite = function(name, body, callbacks){
 	this.$body = body;
 	this.$tests = [];
 	this.$results = [];
-	this.$context = {x: 1};
+	this.$context = {
+		createSpy: function(fn, bound){
+			return new Spy(fn, bound);
+		}
+	};
 
 	this.$callbacks = {
 		before: function(){},
