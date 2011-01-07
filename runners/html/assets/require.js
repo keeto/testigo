@@ -27,7 +27,7 @@ var normalize = function(path, base){
 	path = path.split('/').reverse();
 	base = base.split('/');
 	var last = base.pop();
-	if (last && !(/\.[A-Za-z0-9_-]+$/)) base.push(last);
+	if (last && !(/\.[A-Za-z0-9_-]+$/).test(last)) base.push(last);
 	var i = path.length;
 	while (i--){
 		var current = path[i];
@@ -43,17 +43,20 @@ var normalize = function(path, base){
 var require = function req(module, path){
 	if (path) require.paths.unshift(path);
 	var cont = true, contents = false, base = '';
-	for (var i = 0, y = require.paths.length; i < y && cont; i++) (function(_current){
+	for (var i = 0, y = require.paths.length; (i < y) && cont; i++) (function(_current){
 		base = normalize(module, _current);
 		contents = load(base);
-		if (contents !== false) cont = false;
+		if (contents !== false){
+			cont = false;
+			base = base.replace(/(?:\/)[^\/]*$/, '');
+		}
 	})(require.paths[i]);
 	if (contents === false) throw new Error('Cannot find module "' + module + '"');
 	var exports = {}, fn = 'var require = function(m){ return _require(m, _base); };' + contents;
 	new Function('_require, _base, exports', fn).call(window, req, base, exports);
 	if (path) require.paths.shift();
 	return exports;
-}
+};
 
 require.paths = [window.location.pathname];
 

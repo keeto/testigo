@@ -159,13 +159,6 @@ A simple console-based runner for CommonJS implementations is included and could
 A basic runner for the browser is also included. Check the `runner.html` and `tests.html` files /Specs folder for an example of how to use it.
 
 
-TODO
-----
-
-1. Adding new matchers.
-2. Improve docs.
-
-
 Credits
 -------
 
