@@ -3,13 +3,14 @@
 var extend = require('./utils').extend;
 
 var Spy = function(fn, bound){
+	fn = fn || function(){};
 	var spy = function(){
 		var results,
 			args = Array.prototype.slice.call(arguments);
 		spy.$invocations++;
 		spy.$argStack.push(args);
 		try {
-			results = fn.apply(args || this, args);
+			results = fn.apply(bound || this, args);
 		} catch (e){
 			spy.$errors++;
 			spy.$errorStack.push(e);
