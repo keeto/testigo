@@ -31,7 +31,7 @@ Spy.prototype.getCallCount = function(){
 };
 
 Spy.prototype.getLastArgs = function(){
-	return this.$argStack[this.$argsStack.length - 1];
+	return this.$argStack[this.$argStack.length - 1];
 };
 
 Spy.prototype.getArgs = function(){
