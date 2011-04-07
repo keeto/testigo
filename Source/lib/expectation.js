@@ -43,6 +43,7 @@ Expectation.setMatcher = function(name, func){
 		this.$callback.call(this.$bound, result, this.$received, expected, name);
 		return result;
 	};
+	Expectation.Matchers[name] = func;
 };
 
 Expectation.Matchers = {
