@@ -19,7 +19,8 @@ var prepareNot = function(exp){
 	exp.not = {};
 	for (var matcher in Expectation.Matchers) (function(matcher){
 		exp.not[matcher] = function(expected){
-			var result = !Expectation.Matchers[matcher].call(null, exp.$received, expected);
+			var Matchers = Expectation.Matchers;
+			var result = !Matchers[matcher].call(Matchers, exp.$received, expected);
 			exp.$callback.call(exp.$bound, result, exp.$received, expected, 'not.' + matcher);
 			return result;
 		};
@@ -37,7 +38,8 @@ Expectation.setMatcher = function(name, func){
 	if (func === undefined || !(func instanceof Function))
 		throw new TypeError('Expectation.setMatcher requires a function as its second argument.');
 	Expectation.prototype[name] = function(expected){
-		var result = func.call(null, this.$received, expected);
+		var Matchers = Expectation.Matchers;
+		var result = func.call(Matchers, this.$received, expected);
 		this.$callback.call(this.$bound, result, this.$received, expected, name);
 		return result;
 	};
@@ -114,12 +116,12 @@ Expectation.Matchers = {
 		if (type !== typeOf(received)) return null;
 		if (type == 'object'){
 			for (var key in expected){
-				if (received[key] === undefined || received[key] !== expected[key]) return false;
+				if (received[key] === undefined || !this.toBeLike(received[key], expected[key])) return false;
 			}
 		} else if (type == 'array'){
 			var len = expected.length;
 			while (len--){
-				if (received.indexOf(expected[len]) === -1) return false;
+				if (!this.toBeLike(received[len], expected[len])) return false;
 			}
 		} else {
 			return expected === received;
