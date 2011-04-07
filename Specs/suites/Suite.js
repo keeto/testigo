@@ -11,7 +11,7 @@ Tests.describe('Suites', function(it, setup){
 	it('should throw a syntax error if no `it` named argument is declared', function(expect){
 		var error = null;
 		try {
-			new Suite('Fail', function(){});
+			new Suite('Fail', function(){}, null, true);
 		} catch(e){
 			error = e;
 		} finally {
@@ -25,7 +25,7 @@ Tests.describe('Suites', function(it, setup){
 		new Suite('Pass', function(it, setup){
 			expect(it).toBeAnInstanceOf(Function);
 			expect(setup).toBeAnInstanceOf(Function);
-		}).run();
+		}, null, true).run();
 	});
 
 });

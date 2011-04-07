@@ -7,7 +7,7 @@ Tests.describe('Cases', function(it, setup){
 	setup('beforeEach', function(){
 		var self = this;
 		this.throwingTest = function(){
-			new Case('descr', function(){});
+			new Case('descr', function(){}, null, null, true);
 		};
 		this.failingTest = new Case('descr', function(expect){
 			expect(1).toBe(1);
@@ -18,7 +18,7 @@ Tests.describe('Cases', function(it, setup){
 			// expect.call(null, 'mark').toBe('w');
 			expect.apply;
 			expect.call;
-		});
+		}, null, null, true);
 		this.passingTest = new Case('descr', function(expect){
 			self.innerExpect = expect;
 			expect(1).toBe(1);
@@ -29,7 +29,7 @@ Tests.describe('Cases', function(it, setup){
 			'after': function(){
 				self.afterCallback = true;
 			}
-		});
+		}, null, null, true);
 	});
 
 	it('should throw a syntax error if no `expect` named argument is declared', function(expect){
