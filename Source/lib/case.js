@@ -128,9 +128,9 @@ Case.prototype.run = function(){
 		};
 		this.$test.call(this.$context, expectProto);
 	} catch(e){
+		this.$finished = true;
 		error = e;
 	} finally {
-		this.$finished = true;
 		if (error) addResult.call(this, {
 			passed: false,
 			received: null,
