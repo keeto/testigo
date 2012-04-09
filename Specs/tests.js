@@ -5,5 +5,6 @@ exports.setup = function(Testigo){
 	require('./suites/Case').setup(Testigo);
 	require('./suites/Spies').setup(Testigo);
 	require('./suites/Suite').setup(Testigo);
+	require('./suites/Examples').setup(Testigo);
 
 };
