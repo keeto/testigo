@@ -12,6 +12,7 @@ Tests.describe('Examples', function(it, setup){
 	});
 
 	it('should handle async functions', function(expect){
+		expect.perform(1);
 		var str = this.str;
 		setTimeout(function(){
 			expect(str).toEqual('testigo');
