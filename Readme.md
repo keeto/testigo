@@ -24,6 +24,7 @@ A Taste of Syntax
 		});
 		
 		it('should handle async functions', function(expect){
+			expect.perform(1);
 			var str = this.str;
 			setTimeout(function(){
 				expect(str).toEqual('testigo');
